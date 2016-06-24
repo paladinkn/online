@@ -1,0 +1,301 @@
+<html ng-app = "myapp">
+<head>
+<meta charset="utf-8">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/te.css" />
+</head>
+<body >
+	<div ng-controller="myCtrl">
+		<input type="text" ng-model = "username"/>
+		<button ng-click = "sayHello()">click</button>
+		<span>{{num|resver:num2}}</span>
+		<p>{{num|number:2}}</p>
+		<p>{{greet | uppercase}}</p>
+		<p>{{ numSort |sortevent}}</p>
+	</div>
+	<div ng-controller = "palFactory">
+		<p>constant:{{_constant}}</p>
+		<p>value:{{_value}}</p>
+		<p>factory:{{num}}   ||||{{ _factory }}</p>
+	</div>
+	<div ng-controller = "palDemo">	
+		<select ng-model="selected" ng-options="x.value as x.name for x in users" ng-change="dataChange()">
+		</select>
+		<div>
+			<ul>
+				<li ng-repeat= "goodsInfo in goods" >{{goodsInfo.name}}</li>
+
+			</ul>	
+			
+		</div>
+		{{selected}} 
+		<select ng-model="palSelect" ng-options="x.value as x.name for x in orderTypes"></select>
+			{{palSelect}}
+	</div>
+	<div ng-controller = "palDirective">
+		<p>指令</p>
+
+		<div pal-directive>
+			ddddaaa
+		</div>
+		<expander>
+
+			<span> is show !!!</span>
+		</expander>
+		{{ isShow }}
+		<th-add></th-add>
+	</div>
+</body>
+
+
+<script>
+function person(){
+
+}
+function person2(){
+
+}
+person.prototype.name = "paladin";
+person.prototype.sayName = function(){
+	alert(person.prototype.name);
+}
+
+
+var pa = new person();
+var pa2 = new person();
+pa.name="pal";
+//pa.sayName();
+console.info(pa.name);
+//delete 删除该实例的属性
+//delete pa.name;
+//console.info(pa.name);
+//判断是否属于该构造函数
+console.info(person.prototype.isPrototypeOf(pa));
+//得到该实例的原型
+console.info(Object.getPrototypeOf(pa));
+//得到该实例的原型的name
+console.info(Object.getPrototypeOf(pa).name);
+//hasOwnProperty   判断该实例属性值来自实例还是原型，来自实例true，来自原型false
+console.info(pa.hasOwnProperty("name"))   //true   来自实例
+console.info(pa2.hasOwnProperty("name"))  //false	来自原型
+
+function selData(){
+	return [
+		{name:"请选择",value:"0"},
+        {name:'a',value:'1'},
+        {name:'b',value:'2'},
+        {name:'c',value:'3'}
+  	]
+}
+function contData(type){
+	var data = [],
+		num = 5;
+	switch(type){
+		case "0":num=5;break;
+		case "1":num=2;break;
+		case "2":num=7;break;
+		case "3":num=10;break;
+		default:num=5;break;
+	}
+	for(var i = 0;i<num;i++){
+		data.push({id:i+1,name:"goods"+i})
+	}	
+	//console.info(JSON.stringify(data));
+	return data;
+}
+var pal = angular.module("myapp",[]);
+pal.controller("palDemo",function($scope,baseService){
+	  $scope.orderTypes = [{name:'综合排序',value:1},{name:'综合排序',value:2},{name:'综合排序',value:3}];
+	  $scope.palSelect=$scope.orderTypes[2].value;//如果想要第一个值
+	  $scope.users = selData(); 
+  	  $scope.selected=$scope.users[0].value;//如果想要第一个值
+  	  $scope.goods = contData($scope.selected);
+  	  $scope.dataChange = function(){
+  	 	 $scope.goods = contData($scope.selected);
+  	  }
+  	  //$scope.selected = 2;//id的值，区分类型
+	})
+
+pal.service("baseService",function(){
+	var that = this;
+	that.handleData = function(info){
+		console.info(JSON.stringify(info));
+	}
+})
+pal.controller("myCtrl",function($scope){
+		$scope.username = "paladin";
+		$scope.num = 20;
+		$scope.num2 = 50;
+		$scope.numSort = {
+			sat:20
+		};
+		$scope.sayHello = function(){
+			$scope.greet = "Hello"+$scope.username;
+		}
+	})
+	pal.filter("resver",function(){
+		return function(a,b){
+			return a;	
+		}
+	})
+	pal.filter("sortevent",function(){
+		//console.info(2);
+		var st = function(a,b){
+			//console.info(a);
+		}
+		return st;
+	})
+	pal.controller("palFactory",function($scope,calcServer,adds){
+		$scope.uname = "yt";
+		$scope.num = calcServer.st(5);
+		$scope._constant = calcServer.getConsant();
+		$scope._value = calcServer.getValue();
+		$scope._factory = calcServer.getFactory2(2);
+		console.info(adds);
+	})
+	var pala = function(){
+		console.info("paladina")
+	}
+
+	
+	//config
+	//constant
+	pal.config(function($provide){
+		$provide.constant("_constant","this is constant !");
+	})
+	//value
+	pal.config(function($provide){
+		$provide.value("_value","this is value");
+	})
+	//server
+	pal.config(function($provide){
+		$provide.service("_service",function(_value){
+			var that = this;
+			that.thGetValue = function(){
+				return _value+" for the service";
+			}
+		})
+	})
+	//factory
+	pal.config(function($provide){
+		$provide.factory("_factory",function(){
+			var fa = {};
+			fa.thFactory = function(a){
+				return "this is a factory for service !"+a;				
+			}
+			fa.thFactory2 = function(a){
+				return "this is a factoryss2 for service !"+a;
+			}
+			return fa;
+		})
+	})
+	//provide
+	pal.config(function($provide){
+		$provide.provider("adds",{
+			th:200,
+			$get:function(_constant){
+				return _constant;
+			}
+		})
+	})
+	//factory
+	pal.factory("MathFactory",function(){
+		var factory = {};
+		factory.mul = function(x,y){
+			return x*y;
+		}
+		return factory;
+	})
+	//server
+	pal.service("calcServer",function(MathFactory,_constant,_service,_factory){
+		var that = this;
+
+		that.st = function(a){
+			return MathFactory.mul(a,a);
+		}
+		that.getConsant = function(){
+			return _constant;
+		}
+		that.getValue = function(){
+			return _service.thGetValue();
+		}
+		that.getFactory = function(a){
+			return _factory.thFactory(a);
+		}
+		that.getFactory2 = function(a){
+			return _factory.thFactory2(a);
+		}
+	})
+	//provide
+	pal.provider("add",{
+		th:100,
+		$get:function(){
+			return this.th*10;
+		}
+	})
+	pal.controller("palDirective",function($scope){
+			$scope.thValue = "directive";
+	})
+//指令
+	pal.directive("palDirective",function(){
+		return {
+			restrict:"A",
+			replace:true,	
+			template:"<div ><p><input tupe='input' value='{{thValue}}'/><span class='pals'>{{thValue}}</span><span ng-transclude></span></p></div>",
+			transclude:true,
+			link:function(scope,elem,attrs){
+				elem.bind("click",function(){
+					//console.info(elem.html())
+					elem.css("background-color","red");
+					scope.$apply(function(){
+						scope.thValue = "paladin";
+					})
+				})
+				elem.bind("mouseover",function(){
+					elem.css("cursor","pointer");
+				})
+				elem.find("p").on("click",function(){
+					console.info();
+				})
+			}
+		}
+	})
+
+	pal.directive("thAdd",function(){
+		var sat = {
+			restrice:"EA",
+			replace:true,
+			controller:function($scope){
+				console.info("this is add");
+			},
+			template:'<div>1212</div>',
+			link:function(){
+				//console.info("this is add2");
+			}
+		}
+		return sat;
+	})
+
+
+	pal.directive("expander",function(){
+		var sat = {
+			restrice:"EA",
+			replace:true,
+			transclude:true,
+			//require:"sat",
+			template:"<div><button ng-click='togClick()'>click</button><p ng-show = 'isShow' ng-transclude></p></div>",
+			link:function(scope,elem,attrs){
+				scope.isShow = false;
+				scope.togClick = function(){
+					scope.isShow = !scope.isShow;
+				}
+			}
+		}
+		return sat;
+	})
+
+</script>
+</html>
+
+
+   
