@@ -1,0 +1,28 @@
+
+
+.head_con{
+	height:50px;
+	background-color: #25313e;
+	div{
+		height: 50px;
+		line-height: 50px;
+		font-size: 20px;
+		color: #adbece;
+		margin-left: 30px;
+	}
+}
+.left_con{
+	width:120px;
+	min-width: 120px;
+	background-color:#55313e;
+	color: #adbece;
+	height:100%;
+	ul{
+		li{
+			text-align: center;
+			padding: 10px 0px;
+			border-bottom:1px #fff solid;
+			cursor: pointer;
+		}
+	}
+}
