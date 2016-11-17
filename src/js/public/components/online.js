@@ -2,17 +2,17 @@
 
 
 import React, { PropTypes, Component } from 'react';
+import './comp.scss';
 
-
-class Demo extends Component {
+class Online extends Component {
 	render() {
 		return (
 			<div className = 'con_co'>
 				<div className = 'title'>
-					<h1>this is demo module</h1>
+					<h1>this is online module</h1>
 				</div>
 			</div>
 			)
 	}
 }
-export default Demo;
+export default Online;

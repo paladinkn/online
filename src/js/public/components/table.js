@@ -1,18 +1,21 @@
 
 
 
+
+
+
 import React, { PropTypes, Component } from 'react';
 import './comp.scss';
 
-class Home extends Component {
+class Table extends Component {
 	render() {
 		return (
 			<div className = 'con_co'>
 				<div className = 'title'>
-					<h1>welcome to paladin home</h1>
+					<h1>this is table module</h1>
 				</div>
 			</div>
 			)
 	}
 }
-export default Home;
+export default Table;
