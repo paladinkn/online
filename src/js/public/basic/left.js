@@ -19,6 +19,16 @@ class Left extends Component {
 							demo
 						</li>
 					</Link>
+					<Link to='/online'>
+						<li>
+							online
+						</li>
+					</Link>
+					<Link to='/table'>
+						<li>
+							table
+						</li>
+					</Link>
 				</ul>
 			</div>
 			)
