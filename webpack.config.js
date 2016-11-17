@@ -4,7 +4,7 @@ var HtmlwebpackPlugin = require('html-webpack-plugin');
 
 var APP_PATH = {
 	'dist/js/pal':path.resolve(__dirname, './src/js/pal.js'),
-	'react': ['react', 'react-dom','jquery'],
+	'react': ['react', 'react-dom'],
 }
 var BUILD_PATH = {
 	path: path.resolve(__dirname, './'),
@@ -21,7 +21,15 @@ var plugins = [
       template:path.resolve(__dirname, './template/tpl.html'),
       filename: path.resolve(__dirname, './pal.html'),
       inject: true
-    })
+    }),
+     new webpack.optimize.UglifyJsPlugin({
+     output: {
+        comments: false,  // remove all comments
+      },
+      compress: {
+        warnings: false,
+      }
+    }),
 ];
 var modules = {
 	 loaders:[
@@ -35,7 +43,8 @@ var config = {
 	entry: APP_PATH,
 	output: BUILD_PATH,
 	plugins: plugins,
-	module: modules
+	module: modules,
+	devtool: false
 }
 
 

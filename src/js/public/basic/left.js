@@ -2,18 +2,23 @@
 
 
 import React, { PropTypes, Component } from 'react';
+import { Link } from 'react-router';
 
 class Left extends Component {
 	render() {
 		return (
 			<div className = 'left_con'>
 				<ul>
-					<li>
-						fun1
-					</li>
-					<li>
-						fun2
-					</li>
+					<Link to='/home'>
+						<li>
+							home
+						</li>
+					</Link>
+					<Link to='/demo'>
+						<li>
+							demo
+						</li>
+					</Link>
 				</ul>
 			</div>
 			)
