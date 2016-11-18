@@ -14,7 +14,6 @@ class Left extends Component {
 	}
 	render() {
 		var _thisUrl = this.leftContr();
-
 		return (
 			<div className = 'left_con'>
 				<ul>
@@ -36,6 +35,11 @@ class Left extends Component {
 					<Link to='/table'>
 						<li className = { _thisUrl == 'table'?'th_color':'' } >
 							table
+						</li>
+					</Link>
+					<Link to='/check'>
+						<li className = { _thisUrl == 'check'?'th_color':'' } >
+							check
 						</li>
 					</Link>
 				</ul>

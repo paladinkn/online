@@ -24,6 +24,25 @@ app.use(express.static(__dirname+'/'));
 app.get('/', function (req, res) {
    res.sendFile( __dirname + "/" + "pal.html" );
 })
+
+app.get('/data', function(req, res) {
+	var data = [
+		{
+			id: 1,
+			name: 'pal',
+			age: 21
+		},
+		{
+			id: 2,
+			name: 'pal2',
+			age: 22
+		}
+	]
+	data = JSON.stringify(data);
+	res.send(data);
+	res.end();
+})
+
 app.listen(port, function(err){
 	if(err){
 		throw err;

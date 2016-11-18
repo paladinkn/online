@@ -12,7 +12,7 @@ import { Row, Col } from 'antd';
 class Base extends Component {
 	render() {
 		const { children } = this.props;
-		console.log(children)
+		//console.log(children)
 		return (
 			<Row className = 'hei'>
 				<Header />
