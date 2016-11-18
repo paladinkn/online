@@ -21,6 +21,15 @@
 			padding: 10px 0px;
 			border-bottom:1px #fff solid;
 			cursor: pointer;
+			color: #adbece;
 		}
+		li:hover{
+			background-color:#8B1A1A;
+			color: #fff;
+		}
+	}
+	.th_color {
+		background-color:#8B1A1A;
+		color: #fff;
 	}
 }
