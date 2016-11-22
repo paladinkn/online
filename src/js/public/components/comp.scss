@@ -16,3 +16,23 @@
 		text-align: center;
 	}
 }
+
+.form_info{
+	margin-top: 10px;
+	.font {
+		width: 50px;
+		float: left;
+		
+	}
+	input:text {
+		float: left;
+	}
+	.form_sex {
+		margin: 0 10px;
+	}
+
+
+}
+.clear{
+	clear: both;
+}
