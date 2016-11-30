@@ -42,6 +42,11 @@ class Left extends Component {
 							check
 						</li>
 					</Link>
+					<Link to='/mod'>
+						<li className = { _thisUrl == 'mod'?'th_color':'' } >
+							modules
+						</li>
+					</Link>
 				</ul>
 			</div>
 			)
